@@ -73,7 +73,10 @@ class NotesPage extends StatelessWidget {
               ? Center(
                   child: Text(
                     "No notes yet.\nTap + to add one.",
-                    style: primaryTextStyle.copyWith(fontSize: 14),
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 )

@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 34),
                   Icon(
                     Icons.folder_open,
                     size: 40,
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.grey.shade600,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 34),
                 ],
               ),
             );

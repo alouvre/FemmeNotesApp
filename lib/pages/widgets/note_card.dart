@@ -8,21 +8,21 @@ class NoteCard extends StatelessWidget {
   final VoidCallback onEdit;
 
   const NoteCard({
-    Key? key,
+    super.key,
     required this.note,
     required this.onDelete,
     required this.onEdit,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Color(int.parse(note.color)),
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 4,
@@ -40,7 +40,7 @@ class NoteCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   note.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -59,28 +59,28 @@ class NoteCard extends StatelessWidget {
                   }
                 },
                 itemBuilder: (context) => [
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     value: 'edit',
                     child: Text('Edit'),
                   ),
-                  PopupMenuItem(
+                  const PopupMenuItem(
                     value: 'delete',
                     child: Text('Delete'),
                   ),
                 ],
-                icon: Icon(
+                icon: const Icon(
                   Icons.more_vert,
                   color: Colors.white,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           // Konten Note
           Expanded(
             child: Text(
               note.content,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white70,
               ),
@@ -88,11 +88,11 @@ class NoteCard extends StatelessWidget {
               maxLines: 6, // Batasi maksimal 6 baris
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           // Tanggal Terakhir Diedit
           Text(
             "Last Edited: ${DateFormat('dd/MM/yyyy, HH:mm').format(DateTime.parse(note.lastEdited))}",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12,
               color: Colors.white54,
             ),

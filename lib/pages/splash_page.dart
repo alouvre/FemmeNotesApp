@@ -13,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () => Navigator.pushNamed(context, '/sign-in'),
     );
 
@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Container(
           width: 130,
           height: 150,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/image-splash.png"),
             ),

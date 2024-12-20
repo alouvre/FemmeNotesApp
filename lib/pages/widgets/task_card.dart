@@ -7,18 +7,18 @@ class TaskCard extends StatelessWidget {
   final String description;
 
   const TaskCard({
-    Key? key,
+    super.key,
     this.title = "Untitled Task",
     this.time = "No Time Set",
     this.description = "No Description",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 380,
       height: 130,
-      margin: EdgeInsets.only(top: 15),
+      margin: const EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         color: secondaryColor,
