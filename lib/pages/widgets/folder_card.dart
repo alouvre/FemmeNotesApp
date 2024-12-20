@@ -17,7 +17,7 @@ class FolderCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 120,
-        margin: EdgeInsets.only(right: 18),
+        margin: EdgeInsets.only(right: 14),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: primaryColor,
