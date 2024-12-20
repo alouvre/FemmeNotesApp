@@ -141,13 +141,11 @@ class ProfilePage extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          header(),
-          content(),
-        ],
-      ),
+    return Column(
+      children: [
+        header(),
+        content(),
+      ],
     );
   }
 }
