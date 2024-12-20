@@ -9,6 +9,8 @@ import 'package:flutterapp01/pages/providers/task_notifier.dart';
 import 'package:flutterapp01/theme.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -34,7 +36,7 @@ class _MainPageState extends State<MainPage> {
           final newTask = await Navigator.push<Task>(
             context,
             MaterialPageRoute(
-              builder: (context) => AddTaskPage(),
+              builder: (context) => const AddTaskPage(),
             ),
           );
 
@@ -43,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           }
         },
         backgroundColor: background03,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         child: Image.asset(
           "assets/icon-add.png",
           width: 25,
@@ -54,8 +56,8 @@ class _MainPageState extends State<MainPage> {
     Widget customButtonNav() {
       return ClipRRect(
         child: BottomAppBar(
-          padding: EdgeInsets.all(0),
-          shape: CircularNotchedRectangle(),
+          padding: const EdgeInsets.all(0),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 13,
           clipBehavior: Clip.antiAlias,
           child: BottomNavigationBar(
@@ -73,7 +75,7 @@ class _MainPageState extends State<MainPage> {
               // Home
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 10,
                   ),
                   child: Image.asset(
@@ -87,7 +89,7 @@ class _MainPageState extends State<MainPage> {
               // Notes
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 10,
                     right: 40,
                   ),
@@ -102,7 +104,7 @@ class _MainPageState extends State<MainPage> {
               // Calendar
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 10,
                     left: 40,
                   ),
@@ -117,7 +119,7 @@ class _MainPageState extends State<MainPage> {
               // Profile
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 10,
                   ),
                   child: Image.asset(
@@ -137,19 +139,19 @@ class _MainPageState extends State<MainPage> {
     Widget body() {
       switch (currentIndex) {
         case 0:
-          return HomePage();
+          return const HomePage();
         case 1:
-          return NotesPage();
+          return const NotesPage();
         case 2:
           return CalendarPage(
             // Kirim fungsi updateSelectedDate ke CalendarPage
             onDateSelected: updateSelectedDate,
           );
         case 3:
-          return ProfilePage();
+          return const ProfilePage();
 
         default:
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
       }
     }
 
