@@ -19,6 +19,20 @@ class NoteNotifier extends ValueNotifier<List<Note>> {
       ..[index] = updatedNote; // Gantikan note lama dengan note baru
     notifyListeners();
   }
+
+  void moveNotesToFolder(List<int> noteIndexes, String folderName) {
+    value = List.from(value);
+    for (var index in noteIndexes) {
+      value[index] = Note(
+        title: value[index].title,
+        content: value[index].content,
+        color: value[index].color,
+        lastEdited: value[index].lastEdited,
+        folderName: folderName,
+      );
+    }
+    notifyListeners();
+  }
 }
 
 // Notifier global yang bisa diakses di seluruh aplikasi

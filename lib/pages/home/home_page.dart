@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/home/notes_page.dart';
 import 'package:flutterapp01/pages/models/folder_model.dart';
 import 'package:flutterapp01/pages/providers/folder_notifier.dart';
 import 'package:flutterapp01/pages/widgets/folder_card.dart';
@@ -189,7 +190,13 @@ class _HomePageState extends State<HomePage> {
                 return FolderCard(
                   name: folders[index].name,
                   onTap: () {
-                    print("Opened folder: ${folders[index].name}");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            NotesPage(folderName: folders[index].name),
+                      ),
+                    );
                   },
                 );
               },
