@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/models/folder_model.dart';
 import 'package:flutterapp01/pages/models/note_model.dart';
 import 'package:flutterapp01/pages/providers/note_notifier.dart';
 import '../theme.dart';

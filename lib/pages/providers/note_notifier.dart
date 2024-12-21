@@ -28,7 +28,6 @@ class NoteNotifier extends ValueNotifier<List<Note>> {
         content: value[index].content,
         color: value[index].color,
         lastEdited: value[index].lastEdited,
-        folderName: folderName,
       );
     }
     notifyListeners();

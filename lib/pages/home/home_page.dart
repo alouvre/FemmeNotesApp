@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/folder_notes_page.dart';
 import 'package:flutterapp01/pages/home/notes_page.dart';
 import 'package:flutterapp01/pages/models/folder_model.dart';
 import 'package:flutterapp01/pages/providers/folder_notifier.dart';
@@ -15,14 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-      if (folderNotifier.value.isEmpty) {
-        folderNotifier.addFolder("General"); // Tambahkan folder default
-      }
-    }
-
     // Dialog untuk menambahkan folder baru
     void _showAddFolderDialog() {
       final TextEditingController folderNameController =
@@ -48,10 +41,12 @@ class _HomePageState extends State<HomePage> {
               ),
               TextButton(
                 onPressed: () {
-                  if (folderNameController.text.trim().isNotEmpty) {
-                    folderNotifier.addFolder(folderNameController.text.trim());
+                  final folderName = folderNameController.text.trim();
+                  if (folderName.isNotEmpty) {
+                    // Tambahkan folder ke folderNotifier
+                    folderNotifier.addFolder(FolderModel(name: folderName));
+                    Navigator.pop(context); // Tutup dialog setelah menyimpan
                   }
-                  Navigator.pop(context); // Tutup dialog setelah menyimpan
                 },
                 child: const Text("Add"),
               ),
@@ -187,14 +182,18 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
               itemCount: folders.length,
               itemBuilder: (context, index) {
+                final folder = folders[index];
                 return FolderCard(
-                  name: folders[index].name,
+                  name: folder.name,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            NotesPage(folderName: folders[index].name),
+                        builder: (context) => FolderNotesPage(
+                          folderName: folder.name,
+                          notes:
+                              folder.notes, // Kirimkan catatan spesifik folder
+                        ),
                       ),
                     );
                   },
