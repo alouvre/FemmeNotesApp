@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/models/note_model.dart';
+import 'package:flutterapp01/pages/widgets/folder_selection_dialog.dart';
+import 'package:flutterapp01/pages/providers/folder_notifier.dart';
 import 'package:intl/intl.dart';
-import '../models/note_model.dart';
 
 class NoteCard extends StatelessWidget {
   final Note note;
@@ -56,6 +58,21 @@ class NoteCard extends StatelessWidget {
                     onEdit();
                   } else if (value == 'delete') {
                     onDelete();
+                  } else if (value == 'move') {
+                    print('Move to Folder selected'); // Debug
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        print('Dialog Builder triggered'); // Debug
+                        return FolderSelectionDialog(
+                          onFolderSelected: (folderName) {
+                            print('Selected folder: $folderName'); // Debug
+                            folderNotifier.addNoteToFolder(folderName, note);
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    );
                   }
                 },
                 itemBuilder: (context) => [
@@ -66,6 +83,10 @@ class NoteCard extends StatelessWidget {
                   const PopupMenuItem(
                     value: 'delete',
                     child: Text('Delete'),
+                  ),
+                  const PopupMenuItem(
+                    value: 'move',
+                    child: Text('Move to Folder'),
                   ),
                 ],
                 icon: const Icon(

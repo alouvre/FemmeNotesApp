@@ -13,8 +13,16 @@ class FolderNotifier extends ValueNotifier<List<FolderModel>> {
   void addNoteToFolder(String folderName, Note note) {
     final folderIndex = value.indexWhere((folder) => folder.name == folderName);
     if (folderIndex != -1) {
-      value[folderIndex].notes.add(note); // Tambahkan catatan ke folder
+      final folder = value[folderIndex];
+      final updatedNotes = List<Note>.from(folder.notes)..add(note);
+      value[folderIndex] = FolderModel(
+        name: folder.name,
+        notes: updatedNotes,
+      );
+      print('Note added to folder: ${folder.name}');
       notifyListeners();
+    } else {
+      print('Folder not found: $folderName');
     }
   }
 }

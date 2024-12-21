@@ -222,12 +222,17 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    // Widget listOnGoingTask() {
+
+    // }
+
     return ListView(
       children: [
         header(),
         noteFoldersTitle(),
         listnoteFolders(),
         taskOnGoingTitle(),
+        // listOnGoingTask(),
       ],
     );
   }

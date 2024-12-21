@@ -6,6 +6,6 @@ class FolderModel {
 
   FolderModel({
     required this.name,
-    this.notes = const [],
-  });
+    List<Note>? notes,
+  }) : notes = notes ?? []; // Inisialisasi sebagai list yang dapat dimodifikasi
 }
