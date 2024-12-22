@@ -133,7 +133,7 @@ class SignInPage extends StatelessWidget {
       );
     }
 
-    Widget signInButton() {
+    Widget SignInButton() {
       return Container(
         height: 50,
         width: double.infinity,
@@ -152,7 +152,7 @@ class SignInPage extends StatelessWidget {
             "Sign In",
             style: primaryTextStyle.copyWith(
               fontSize: 16,
-              fontWeight: semibold,
+              fontWeight: medium,
             ),
           ),
         ),
@@ -161,12 +161,12 @@ class SignInPage extends StatelessWidget {
 
     Widget footer() {
       return Container(
-        margin: const EdgeInsets.only(bottom: 60),
+        margin: EdgeInsets.only(bottom: defaultMargin),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Don't have an account? ",
+              "Don\'t have an account? ",
               style: primaryTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: regular,
@@ -203,8 +203,8 @@ class SignInPage extends StatelessWidget {
               header(),
               emailInput(),
               passwordInput(),
-              signInButton(),
-              const Spacer(),
+              SignInButton(),
+              Spacer(),
               footer(),
             ],
           ),

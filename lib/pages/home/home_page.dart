@@ -191,8 +191,7 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(
                         builder: (context) => FolderNotesPage(
                           folderName: folder.name,
-                          notes:
-                              folder.notes, // Kirimkan catatan spesifik folder
+                          notes: folder.notes,
                         ),
                       ),
                     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/providers/folder_notifier.dart';
 import '../models/note_model.dart';
 
 class NoteNotifier extends ValueNotifier<List<Note>> {
@@ -9,9 +10,14 @@ class NoteNotifier extends ValueNotifier<List<Note>> {
     notifyListeners();
   }
 
-  void removeNoteAt(int index) {
-    value = List.from(value)..removeAt(index);
-    notifyListeners();
+  void removeNoteCompletely(Note note) {
+    // Hapus dari daftar utama
+    value = value.where((n) => n != note).toList();
+
+    // Hapus dari folder
+    folderNotifier.removeNoteFromAllFolders(note);
+
+    notifyListeners(); // Harus dipanggil setelah perubahan
   }
 
   void updateNoteAt(int index, Note updatedNote) {
@@ -20,16 +26,11 @@ class NoteNotifier extends ValueNotifier<List<Note>> {
     notifyListeners();
   }
 
-  void moveNotesToFolder(List<int> noteIndexes, String folderName) {
-    value = List.from(value);
-    for (var index in noteIndexes) {
-      value[index] = Note(
-        title: value[index].title,
-        content: value[index].content,
-        color: value[index].color,
-        lastEdited: value[index].lastEdited,
-      );
-    }
+  void moveNoteToFolder(Note note, String newFolderName) {
+    // Tambahkan note ke folder baru
+    folderNotifier.addNoteToFolder(newFolderName, note);
+
+    // Perbarui UI
     notifyListeners();
   }
 }

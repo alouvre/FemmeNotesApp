@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp01/pages/add_note_page.dart';
 import 'package:flutterapp01/pages/edit_note_page.dart';
+import 'package:flutterapp01/pages/widgets/folder_selection_dialog.dart';
 import 'package:flutterapp01/theme.dart';
 import 'package:flutterapp01/pages/models/note_model.dart';
 import 'package:flutterapp01/pages/providers/note_notifier.dart';
@@ -52,8 +53,12 @@ class NotesPage extends StatelessWidget {
           // Buka halaman formulir input
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AddNotePage()),
-          );
+            MaterialPageRoute(
+              builder: (context) => const AddNotePage(),
+            ),
+          ).then((_) {
+            print('Kembali ke NotesPage.');
+          });
         },
         backgroundColor: secondaryColor,
         child: const Icon(
@@ -95,7 +100,10 @@ class NotesPage extends StatelessWidget {
                       final note = notes[index];
                       return NoteCard(
                         note: note,
-                        onDelete: () => noteNotifier.removeNoteAt(index),
+                        index: index,
+                        onDelete: () {
+                          noteNotifier.removeNoteCompletely(note);
+                        },
                         onEdit: () {
                           showDialog(
                             context: context,
@@ -103,6 +111,21 @@ class NotesPage extends StatelessWidget {
                               note: note,
                               onSave: (updatedNote) {
                                 noteNotifier.updateNoteAt(index, updatedNote);
+                              },
+                            ),
+                          );
+                        },
+                        onMove: () {
+                          // Pindahkan note ke folder lain
+                          showDialog(
+                            context: context,
+                            builder: (context) => FolderSelectionDialog(
+                              note: note,
+                              onFolderSelected: (folderName) {
+                                noteNotifier.moveNoteToFolder(note, folderName);
+
+                                // Tutup dialog dan navigasi kembali ke halaman notes
+                                Navigator.pop(context); // Tutup dialog folder
                               },
                             ),
                           );

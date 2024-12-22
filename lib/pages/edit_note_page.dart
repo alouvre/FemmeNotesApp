@@ -34,9 +34,20 @@ class _EditNotePageState extends State<EditNotePage> {
   }
 
   void _saveNote() {
+    final title = titleController.text.trim();
+    final content = contentController.text.trim();
+
+    // Validasi input kosong
+    if (title.isEmpty || content.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Title and Content cannot be empty')),
+      );
+      return;
+    }
+
     final updatedNote = Note(
-      title: titleController.text.trim(),
-      content: contentController.text.trim(),
+      title: title,
+      content: content,
       color: widget.note.color,
       lastEdited: DateTime.now().toString(),
     );

@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/edit_note_page.dart';
 import 'package:flutterapp01/pages/models/note_model.dart';
+import 'package:flutterapp01/pages/providers/note_notifier.dart';
 import 'package:flutterapp01/pages/widgets/folder_selection_dialog.dart';
 import 'package:flutterapp01/pages/providers/folder_notifier.dart';
 import 'package:intl/intl.dart';
 
 class NoteCard extends StatelessWidget {
   final Note note;
+  final int index;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
+  final VoidCallback onMove;
 
   const NoteCard({
     super.key,
     required this.note,
+    required this.index,
     required this.onDelete,
     required this.onEdit,
+    required this.onMove,
   });
 
   @override
@@ -55,9 +61,18 @@ class NoteCard extends StatelessWidget {
               PopupMenuButton<String>(
                 onSelected: (value) {
                   if (value == 'edit') {
-                    onEdit();
+                    showDialog(
+                      context: context,
+                      builder: (context) => EditNotePage(
+                        note: note,
+                        onSave: (updatedNote) {
+                          noteNotifier.updateNoteAt(index, updatedNote);
+                        },
+                      ),
+                    );
                   } else if (value == 'delete') {
-                    onDelete();
+                    noteNotifier.removeNoteCompletely(
+                        note); // Hapus catatan secara global
                   } else if (value == 'move') {
                     print('Move to Folder selected'); // Debug
                     showDialog(
@@ -65,6 +80,7 @@ class NoteCard extends StatelessWidget {
                       builder: (context) {
                         print('Dialog Builder triggered'); // Debug
                         return FolderSelectionDialog(
+                          note: note,
                           onFolderSelected: (folderName) {
                             print('Selected folder: $folderName'); // Debug
                             folderNotifier.addNoteToFolder(folderName, note);
