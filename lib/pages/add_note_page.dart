@@ -3,6 +3,7 @@ import 'package:flutterapp01/pages/models/folder_model.dart';
 import 'package:flutterapp01/pages/models/note_model.dart';
 import 'package:flutterapp01/pages/providers/note_notifier.dart';
 import '../theme.dart';
+import 'package:uuid/uuid.dart';
 
 class AddNotePage extends StatefulWidget {
   const AddNotePage({super.key});
@@ -14,6 +15,7 @@ class AddNotePage extends StatefulWidget {
 class _AddNotePageState extends State<AddNotePage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
+  final uuid = Uuid();
 
   @override
   void dispose() {
@@ -54,6 +56,7 @@ class _AddNotePageState extends State<AddNotePage> {
     }
 
     final newNote = Note(
+      id: uuid.v4(),
       title: titleController.text.trim(),
       content: contentController.text.trim(),
       color: "0xFFFEB3C7",

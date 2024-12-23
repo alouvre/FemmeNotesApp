@@ -41,7 +41,7 @@ class FolderNotifier extends ValueNotifier<List<FolderModel>> {
     for (var i = 0; i < value.length; i++) {
       final folder = value[i];
       final noteIndex =
-          folder.notes.indexWhere((note) => note.title == updatedNote.title);
+          folder.notes.indexWhere((note) => note.id == updatedNote.id);
       if (noteIndex != -1) {
         final updatedNotes = List<Note>.from(folder.notes);
         updatedNotes[noteIndex] = updatedNote;

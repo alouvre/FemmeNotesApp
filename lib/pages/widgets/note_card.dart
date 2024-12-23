@@ -12,6 +12,7 @@ class NoteCard extends StatelessWidget {
   final VoidCallback onDelete;
   final VoidCallback onEdit;
   final VoidCallback onMove;
+  final VoidCallback onSave;
 
   const NoteCard({
     super.key,
@@ -20,6 +21,7 @@ class NoteCard extends StatelessWidget {
     required this.onDelete,
     required this.onEdit,
     required this.onMove,
+    required this.onSave,
   });
 
   @override

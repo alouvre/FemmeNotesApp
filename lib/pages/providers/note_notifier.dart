@@ -12,7 +12,7 @@ class NoteNotifier extends ValueNotifier<List<Note>> {
 
   void removeNoteCompletely(Note note) {
     // Hapus dari daftar utama
-    value = value.where((n) => n != note).toList();
+    value = value.where((n) => n.id != note.id).toList();
 
     // Hapus dari folder
     folderNotifier.removeNoteFromAllFolders(note);
@@ -26,7 +26,18 @@ class NoteNotifier extends ValueNotifier<List<Note>> {
     notifyListeners();
   }
 
+  /// Fungsi untuk memperbarui catatan berdasarkan id
+  void updateNote(Note updatedNote) {
+    value = value.map((note) {
+      return note.id == updatedNote.id ? updatedNote : note;
+    }).toList();
+    notifyListeners();
+  }
+
   void moveNoteToFolder(Note note, String newFolderName) {
+    // Hapus catatan dari semua folder
+    folderNotifier.removeNoteFromAllFolders(note);
+
     // Tambahkan note ke folder baru
     folderNotifier.addNoteToFolder(newFolderName, note);
 

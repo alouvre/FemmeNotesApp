@@ -32,7 +32,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     Widget addButton() {
       return FloatingActionButton(
-        heroTag: null,
         onPressed: () async {
           final newTask = await Navigator.push<Task>(
             context,

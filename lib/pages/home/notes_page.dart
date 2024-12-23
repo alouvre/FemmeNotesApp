@@ -130,6 +130,7 @@ class NotesPage extends StatelessWidget {
                             ),
                           );
                         },
+                        onSave: () {},
                       );
                     },
                   ),

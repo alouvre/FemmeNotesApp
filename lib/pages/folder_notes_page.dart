@@ -83,13 +83,12 @@ class _FolderNotesPageState extends State<FolderNotesPage> {
     Widget listNotes() {
       return ValueListenableBuilder<List<Note>>(
         valueListenable: noteNotifier,
-        builder: (context, allNotes, child) {
-          // Filter notes berdasarkan folderName
-          final folderNotes = allNotes
-              .where((note) => note.folderName == widget.folderName)
+        builder: (context, notes, _) {
+          final filteredNotes = notes
+              .where((note) => widget.notes.any((n) => n.id == note.id))
               .toList();
 
-          return folderNotes.isEmpty
+          return filteredNotes.isEmpty
               ? Center(
                   child: Text(
                     "No notes in this folder.\nAdd a new note to get started!",
@@ -110,9 +109,9 @@ class _FolderNotesPageState extends State<FolderNotesPage> {
                       crossAxisSpacing: 16,
                       childAspectRatio: 3 / 4,
                     ),
-                    itemCount: folderNotes.length,
+                    itemCount: filteredNotes.length,
                     itemBuilder: (context, index) {
-                      final note = folderNotes[index];
+                      final note = filteredNotes[index];
                       return NoteCard(
                         note: note,
                         index: index,
@@ -125,8 +124,7 @@ class _FolderNotesPageState extends State<FolderNotesPage> {
                             builder: (context) => EditNotePage(
                               note: note,
                               onSave: (updatedNote) {
-                                noteNotifier.updateNoteAt(
-                                    allNotes.indexOf(note), updatedNote);
+                                noteNotifier.updateNote(updatedNote);
                                 Navigator.pop(context);
                               },
                             ),
@@ -144,6 +142,28 @@ class _FolderNotesPageState extends State<FolderNotesPage> {
                                       content:
                                           Text('Note moved to $folderName')),
                                 );
+                              },
+                            ),
+                          );
+                        },
+                        onSave: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => EditNotePage(
+                              note: note,
+                              onSave: (updatedNote) {
+                                noteNotifier.updateNote(updatedNote);
+
+                                // Perbarui referensi catatan di widget.notes
+                                setState(() {
+                                  final index = widget.notes.indexWhere(
+                                      (n) => n.id == updatedNote.id);
+                                  if (index != -1) {
+                                    widget.notes[index] = updatedNote;
+                                  }
+                                });
+
+                                Navigator.pop(context);
                               },
                             ),
                           );
