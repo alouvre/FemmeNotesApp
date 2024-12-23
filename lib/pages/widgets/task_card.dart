@@ -6,6 +6,7 @@ class TaskCard extends StatelessWidget {
   final String time;
   final String description;
   final Function()? onEdit;
+  final Function()? onDelete;
 
   const TaskCard({
     super.key,
@@ -13,6 +14,7 @@ class TaskCard extends StatelessWidget {
     this.time = "No Time Set",
     this.description = "No Description",
     this.onEdit,
+    this.onDelete,
   });
 
   @override
@@ -20,7 +22,7 @@ class TaskCard extends StatelessWidget {
     return Container(
       width: 380,
       height: 140,
-      margin: const EdgeInsets.only(top: 15),
+      margin: const EdgeInsets.only(top: 15, right: 18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         color: secondaryColor,
@@ -48,12 +50,18 @@ class TaskCard extends StatelessWidget {
                   onSelected: (value) {
                     if (value == 'Edit' && onEdit != null) {
                       onEdit!();
+                    } else if (value == 'Delete' && onDelete != null) {
+                      onDelete!();
                     }
                   },
                   itemBuilder: (context) => [
                     const PopupMenuItem(
                       value: 'Edit',
                       child: Text('Edit'),
+                    ),
+                    const PopupMenuItem(
+                      value: 'Delete',
+                      child: Text('Delete'),
                     ),
                   ],
                 ),

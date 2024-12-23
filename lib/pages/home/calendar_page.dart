@@ -72,6 +72,35 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
+  void _deleteTask(Task task) {
+    // Konfirmasi penghapusan
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Delete Task'),
+          content: const Text('Are you sure you want to delete this task?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Tutup dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                taskNotifier.value =
+                    taskNotifier.value.where((t) => t != task).toList();
+                Navigator.pop(context); // Tutup dialog
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
@@ -139,7 +168,7 @@ class _CalendarPageState extends State<CalendarPage> {
           child: Container(
             width: 55,
             height: 82,
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: isSelected
@@ -234,6 +263,9 @@ class _CalendarPageState extends State<CalendarPage> {
                         description: task.description,
                         onEdit: () {
                           _editTask(context, task);
+                        },
+                        onDelete: () {
+                          _deleteTask(task);
                         },
                       );
                     },

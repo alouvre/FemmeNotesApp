@@ -7,9 +7,14 @@ import 'package:flutterapp01/pages/models/note_model.dart';
 import 'package:flutterapp01/pages/providers/note_notifier.dart';
 import 'package:flutterapp01/pages/widgets/note_card.dart';
 
-class NotesPage extends StatelessWidget {
+class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
 
+  @override
+  State<NotesPage> createState() => _NotesPageState();
+}
+
+class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
@@ -36,7 +41,7 @@ class NotesPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(
                     top: 8, left: 30, right: 30), // Jarak Divider
-                child: Divider(
+                child: const Divider(
                   color: Colors.grey, // Warna garis
                   thickness: 1, // Ketebalan garis
                 ),

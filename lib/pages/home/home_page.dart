@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp01/pages/folder_notes_page.dart';
-import 'package:flutterapp01/pages/home/notes_page.dart';
 import 'package:flutterapp01/pages/models/folder_model.dart';
 import 'package:flutterapp01/pages/providers/folder_notifier.dart';
 import 'package:flutterapp01/pages/widgets/folder_card.dart';
@@ -104,8 +103,9 @@ class _HomePageState extends State<HomePage> {
             ),
             // Tambahkan Divider di bawah teks
             Container(
-              margin: EdgeInsets.only(top: 8), // Jarak antara teks dan garis
-              child: Divider(
+              margin:
+                  const EdgeInsets.only(top: 8), // Jarak antara teks dan garis
+              child: const Divider(
                 color: Colors.grey, // Warna garis
                 thickness: 1, // Ketebalan garis
               ),
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
                 color: Colors.black,
                 size: 28,
