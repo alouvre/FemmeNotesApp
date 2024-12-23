@@ -18,6 +18,60 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
+  void _editTask(BuildContext context, Task task) {
+    final titleController = TextEditingController(text: task.title);
+    final descriptionController = TextEditingController(text: task.description);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Edit Task'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(labelText: 'Title'),
+              ),
+              TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(labelText: 'Description'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Update task in notifier
+                taskNotifier.value = taskNotifier.value.map((t) {
+                  if (t == task) {
+                    return Task(
+                      title: titleController.text,
+                      time: task.time,
+                      description: descriptionController.text,
+                      date: task.date,
+                    );
+                  }
+                  return t;
+                }).toList();
+
+                Navigator.pop(context);
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
@@ -178,6 +232,9 @@ class _CalendarPageState extends State<CalendarPage> {
                         title: task.title,
                         time: task.time,
                         description: task.description,
+                        onEdit: () {
+                          _editTask(context, task);
+                        },
                       );
                     },
                   ),

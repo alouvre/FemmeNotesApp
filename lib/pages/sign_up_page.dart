@@ -82,55 +82,6 @@ class SignUpPage extends StatelessWidget {
       );
     }
 
-    Widget usernameInput() {
-      return Container(
-        margin: const EdgeInsets.only(top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Username",
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: semibold,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                  color: tertiaryColor,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: subtitleColor01)),
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/icon-username.png",
-                    width: 20,
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
-                        hintText: 'Your Username',
-                        hintStyle: subtitleTextStyle,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-    }
-
     Widget emailInput() {
       return Container(
         margin: const EdgeInsets.only(top: 20),
@@ -301,7 +252,6 @@ class SignUpPage extends StatelessWidget {
             children: [
               header(),
               fullnameInput(),
-              usernameInput(),
               emailInput(),
               passwordInput(),
               signUpButton(),

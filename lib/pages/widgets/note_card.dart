@@ -28,7 +28,7 @@ class NoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 8),
       decoration: BoxDecoration(
         color: Color(int.parse(note.color)),
         borderRadius: BorderRadius.circular(12),
@@ -114,7 +114,6 @@ class NoteCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 8),
           // Konten Note
           Expanded(
             child: Text(
