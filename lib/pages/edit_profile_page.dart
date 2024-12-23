@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp01/theme.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
@@ -13,20 +18,20 @@ class EditProfilePage extends StatelessWidget {
             Navigator.pop(context);
           },
           icon: const Icon(Icons.close),
-          color: primaryColor,
+          color: secondaryColor,
         ),
         actions: [
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.check),
-            color: primaryColor,
+            color: secondaryColor,
           )
         ],
         backgroundColor: background01,
         centerTitle: true,
         title: Text(
           "Edit Profile",
-          style: primaryTextStyle.copyWith(
+          style: secondaryTextStyle.copyWith(
             fontSize: 18,
             fontWeight: semibold,
           ),
@@ -46,19 +51,19 @@ class EditProfilePage extends StatelessWidget {
           children: [
             Text(
               "Full Name",
-              style: secondaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
             ),
+            const SizedBox(height: 5),
             TextFormField(
               decoration: InputDecoration(
                 hintText: "Chris",
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: secondaryColor,
-                  ),
+                hintStyle: subtitleTextStyle,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  borderSide: BorderSide(color: subtitleColor01),
                 ),
               ),
             ),
@@ -77,19 +82,19 @@ class EditProfilePage extends StatelessWidget {
           children: [
             Text(
               "Email Address",
-              style: secondaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
             ),
+            const SizedBox(height: 5),
             TextFormField(
               decoration: InputDecoration(
                 hintText: "chrisevan@gmail.com",
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: secondaryColor,
-                  ),
+                hintStyle: subtitleTextStyle,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  borderSide: BorderSide(color: subtitleColor01),
                 ),
               ),
             ),

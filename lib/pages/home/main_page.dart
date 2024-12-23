@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage> {
             taskNotifier.addTask(newTask);
           }
         },
-        backgroundColor: background03,
+        backgroundColor: secondaryColor,
         shape: const CircleBorder(),
         child: Image.asset(
           "assets/icon-add.png",
@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
           notchMargin: 13,
           clipBehavior: Clip.antiAlias,
           child: BottomNavigationBar(
-            backgroundColor: background03,
+            backgroundColor: background02,
             currentIndex: currentIndex,
             onTap: (value) {
               setState(() {
@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> {
                   child: Image.asset(
                     "assets/icon-home.png",
                     width: 24,
-                    color: currentIndex == 0 ? secondaryColor : tertiaryColor,
+                    color: currentIndex == 0 ? secondaryColor : primaryColor,
                   ),
                 ),
                 label: '',
@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
                   child: Image.asset(
                     "assets/icon-notes1.png",
                     width: 33,
-                    color: currentIndex == 1 ? secondaryColor : tertiaryColor,
+                    color: currentIndex == 1 ? secondaryColor : primaryColor,
                   ),
                 ),
                 label: '',
@@ -111,7 +111,7 @@ class _MainPageState extends State<MainPage> {
                   child: Image.asset(
                     "assets/icon-calendar.png",
                     width: 31,
-                    color: currentIndex == 2 ? secondaryColor : tertiaryColor,
+                    color: currentIndex == 2 ? secondaryColor : primaryColor,
                   ),
                 ),
                 label: '',
@@ -125,7 +125,7 @@ class _MainPageState extends State<MainPage> {
                   child: Image.asset(
                     "assets/icon-profile.png",
                     width: 21,
-                    color: currentIndex == 3 ? secondaryColor : tertiaryColor,
+                    color: currentIndex == 3 ? secondaryColor : primaryColor,
                   ),
                 ),
                 label: '',

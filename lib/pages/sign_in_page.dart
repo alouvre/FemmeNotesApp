@@ -15,14 +15,14 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               "Login",
-              style: primaryTextStyle.copyWith(
+              style: secondaryTextStyle.copyWith(
                 fontSize: 24,
                 fontWeight: semibold,
               ),
             ),
             const SizedBox(height: 2),
             Text(
-              "Login with Noties account to continue",
+              "Login with Femme account to continue",
               style: subtitleTextStyle.copyWith(
                 fontWeight: light,
               ),
@@ -40,7 +40,7 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               "Email Address",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: semibold,
               ),
@@ -52,7 +52,7 @@ class SignInPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -90,7 +90,7 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               "Password",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: semibold,
               ),
@@ -102,7 +102,7 @@ class SignInPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -167,7 +167,7 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               "Don\'t have an account? ",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: regular,
               ),

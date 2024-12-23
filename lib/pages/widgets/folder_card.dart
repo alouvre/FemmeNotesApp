@@ -20,7 +20,7 @@ class FolderCard extends StatelessWidget {
         margin: const EdgeInsets.only(right: 14),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: primaryColor,
+          color: background02,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -31,14 +31,23 @@ class FolderCard extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: Text(
-            name,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+          child: Column(
+            children: [
+              const SizedBox(height: 34),
+              Icon(
+                Icons.folder_open,
+                size: 50,
+                color: secondaryColor,
+              ),
+              Text(
+                name,
+                textAlign: TextAlign.center,
+                style: tertiaryTextStyle.copyWith(
+                  fontSize: 12,
+                  color: secondaryColor,
+                ),
+              ),
+            ],
           ),
         ),
       ),

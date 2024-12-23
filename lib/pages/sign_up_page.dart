@@ -15,7 +15,7 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               "Sign Up",
-              style: primaryTextStyle.copyWith(
+              style: secondaryTextStyle.copyWith(
                 fontSize: 24,
                 fontWeight: semibold,
               ),
@@ -40,7 +40,7 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               "Full Name",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: semibold,
               ),
@@ -52,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -90,7 +90,7 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               "Email Address",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: semibold,
               ),
@@ -102,7 +102,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -140,7 +140,7 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               "Password",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: semibold,
               ),
@@ -152,7 +152,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -217,7 +217,7 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               "Already have an account? ",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: regular,
               ),

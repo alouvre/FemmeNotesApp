@@ -32,7 +32,7 @@ class _NotesPageState extends State<NotesPage> {
                 padding: const EdgeInsets.only(top: 75, left: 30),
                 child: Text(
                   "Notes",
-                  style: primaryTextStyle.copyWith(
+                  style: tertiaryTextStyle.copyWith(
                     fontSize: 24,
                     fontWeight: semibold,
                   ),
@@ -84,8 +84,8 @@ class _NotesPageState extends State<NotesPage> {
                   child: Text(
                     "No notes yet.\nTap + to add one.",
                     style: primaryTextStyle.copyWith(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
+                      fontSize: 12,
+                      color: subtitleColor01,
                     ),
                     textAlign: TextAlign.center,
                   ),

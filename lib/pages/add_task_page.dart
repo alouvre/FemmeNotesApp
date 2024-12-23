@@ -149,7 +149,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
           children: [
             Text(
               "Title",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -163,7 +163,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -172,7 +172,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   Expanded(
                     child: TextFormField(
                       controller: titleController,
-                      style: primaryTextStyle,
+                      style: tertiaryTextStyle,
                       decoration: InputDecoration.collapsed(
                         hintText: "Enter title here.",
                         hintStyle: subtitleTextStyle,
@@ -197,7 +197,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
           children: [
             Text(
               "Note",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -211,7 +211,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -220,7 +220,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   Expanded(
                     child: TextFormField(
                       controller: noteController,
-                      style: primaryTextStyle,
+                      style: tertiaryTextStyle,
                       decoration: InputDecoration.collapsed(
                         hintText: "Enter note here.",
                         hintStyle: subtitleTextStyle,
@@ -272,7 +272,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
           children: [
             Text(
               "Date",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -286,7 +286,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: tertiaryColor,
+                color: primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: subtitleColor01),
               ),
@@ -295,7 +295,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   Expanded(
                     child: TextFormField(
                       controller: dateController,
-                      style: primaryTextStyle,
+                      style: tertiaryTextStyle,
                       decoration: InputDecoration.collapsed(
                         hintText: "Select a date.",
                         hintStyle: subtitleTextStyle,
@@ -364,7 +364,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     children: [
                       Text(
                         "Start Time",
-                        style: primaryTextStyle.copyWith(
+                        style: tertiaryTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: medium,
                         ),
@@ -377,7 +377,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           margin: const EdgeInsets.only(right: 10),
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
-                            color: tertiaryColor,
+                            color: primaryColor,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: subtitleColor01),
                           ),
@@ -386,7 +386,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                               Expanded(
                                 child: TextFormField(
                                   controller: startTimeController,
-                                  style: primaryTextStyle,
+                                  style: tertiaryTextStyle,
                                   decoration: InputDecoration.collapsed(
                                     hintText: "Start Time",
                                     hintStyle: subtitleTextStyle,
@@ -415,7 +415,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     children: [
                       Text(
                         "End Time",
-                        style: primaryTextStyle.copyWith(
+                        style: tertiaryTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: medium,
                         ),
@@ -427,7 +427,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           height: 50,
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
-                            color: tertiaryColor,
+                            color: primaryColor,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: subtitleColor01),
                           ),
@@ -436,7 +436,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                               Expanded(
                                 child: TextFormField(
                                   controller: endTimeController,
-                                  style: primaryTextStyle,
+                                  style: tertiaryTextStyle,
                                   decoration: InputDecoration.collapsed(
                                     hintText: "End Time",
                                     hintStyle: subtitleTextStyle,
@@ -501,7 +501,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               children: [
                 Text(
                   "Add Task",
-                  style: primaryTextStyle.copyWith(
+                  style: tertiaryTextStyle.copyWith(
                     fontSize: 22,
                     fontWeight: semibold,
                   ),

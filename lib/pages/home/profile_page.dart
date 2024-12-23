@@ -14,13 +14,6 @@ class _ProfilePageState extends State<ProfilePage> {
     Widget header() {
       return AppBar(
         backgroundColor: background01,
-        title: Text(
-          "Profile",
-          style: primaryTextStyle.copyWith(
-            fontSize: 20,
-            fontWeight: semibold,
-          ),
-        ),
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
@@ -39,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 16),
                 Text(
                   "Chris Evan",
-                  style: primaryTextStyle.copyWith(
+                  style: secondaryTextStyle.copyWith(
                     fontSize: 24,
                     fontWeight: semibold,
                   ),
@@ -47,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 8),
                 Text(
                   "chrisevan@gmail.com",
-                  style: primaryTextStyle.copyWith(
+                  style: tertiaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: regular,
                   ),
@@ -69,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Text(
               text,
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 14,
                 fontWeight: regular,
               ),
@@ -96,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(height: defaultMargin),
               Text(
                 "Account",
-                style: primaryTextStyle.copyWith(
+                style: secondaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold,
                 ),
@@ -126,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Text(
                 "General",
-                style: primaryTextStyle.copyWith(
+                style: secondaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold,
                 ),

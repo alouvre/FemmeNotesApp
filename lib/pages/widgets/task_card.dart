@@ -38,7 +38,7 @@ class TaskCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: tertiaryTextStyle.copyWith(
+                    style: primaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,
                     ),
@@ -64,6 +64,10 @@ class TaskCard extends StatelessWidget {
                       child: Text('Delete'),
                     ),
                   ],
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -77,7 +81,7 @@ class TaskCard extends StatelessWidget {
                 const SizedBox(width: 8), // Spasi antara icon dan teks
                 Text(
                   time,
-                  style: tertiaryTextStyle.copyWith(
+                  style: primaryTextStyle.copyWith(
                     fontSize: 12,
                     fontWeight: light,
                   ),
@@ -87,7 +91,7 @@ class TaskCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               description,
-              style: tertiaryTextStyle.copyWith(
+              style: primaryTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: light,
               ),

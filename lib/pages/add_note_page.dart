@@ -102,7 +102,7 @@ class _AddNotePageState extends State<AddNotePage> {
           children: [
             Text(
               "Title",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -115,6 +115,7 @@ class _AddNotePageState extends State<AddNotePage> {
                 hintStyle: subtitleTextStyle,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: subtitleColor01),
                 ),
               ),
             ),
@@ -131,7 +132,7 @@ class _AddNotePageState extends State<AddNotePage> {
           children: [
             Text(
               "Content",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
               ),
@@ -188,7 +189,7 @@ class _AddNotePageState extends State<AddNotePage> {
               children: [
                 Text(
                   "Add Note",
-                  style: primaryTextStyle.copyWith(
+                  style: tertiaryTextStyle.copyWith(
                     fontSize: 22,
                     fontWeight: semibold,
                   ),

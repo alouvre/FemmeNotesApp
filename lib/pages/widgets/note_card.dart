@@ -4,6 +4,7 @@ import 'package:flutterapp01/pages/models/note_model.dart';
 import 'package:flutterapp01/pages/providers/note_notifier.dart';
 import 'package:flutterapp01/pages/widgets/folder_selection_dialog.dart';
 import 'package:flutterapp01/pages/providers/folder_notifier.dart';
+import 'package:flutterapp01/theme.dart';
 import 'package:intl/intl.dart';
 
 class NoteCard extends StatelessWidget {
@@ -28,9 +29,9 @@ class NoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 8),
+      padding: const EdgeInsets.only(top: 16, left: 16, bottom: 8),
       decoration: BoxDecoration(
-        color: Color(int.parse(note.color)),
+        color: background02,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
           BoxShadow(
@@ -50,15 +51,13 @@ class NoteCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   note.title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: secondaryTextStyle.copyWith(
+                      fontSize: 16, fontWeight: bold),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
               ),
+              const SizedBox(height: 5),
               // Menu Dropdown
               PopupMenuButton<String>(
                 onSelected: (value) {
@@ -118,10 +117,8 @@ class NoteCard extends StatelessWidget {
           Expanded(
             child: Text(
               note.content,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white70,
-              ),
+              style:
+                  secondaryTextStyle.copyWith(fontSize: 12, fontWeight: medium),
               overflow: TextOverflow.ellipsis,
               maxLines: 6, // Batasi maksimal 6 baris
             ),
@@ -130,10 +127,7 @@ class NoteCard extends StatelessWidget {
           // Tanggal Terakhir Diedit
           Text(
             "Last Edited: ${DateFormat('dd/MM/yyyy, HH:mm').format(DateTime.parse(note.lastEdited))}",
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.white54,
-            ),
+            style: secondaryTextStyle.copyWith(fontSize: 10),
           ),
         ],
       ),

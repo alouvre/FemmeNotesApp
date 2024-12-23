@@ -3,6 +3,7 @@ import 'package:flutterapp01/pages/folder_notes_page.dart';
 import 'package:flutterapp01/pages/models/folder_model.dart';
 import 'package:flutterapp01/pages/providers/folder_notifier.dart';
 import 'package:flutterapp01/pages/widgets/folder_card.dart';
+import 'package:flutterapp01/pages/widgets/task_list_view.dart';
 import 'package:flutterapp01/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -72,14 +73,14 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text(
                         "Hey Chris,",
-                        style: primaryTextStyle.copyWith(
+                        style: tertiaryTextStyle.copyWith(
                           fontSize: 24,
                           fontWeight: bold,
                         ),
                       ),
                       Text(
                         "Good Morning!",
-                        style: primaryTextStyle.copyWith(
+                        style: tertiaryTextStyle.copyWith(
                           fontSize: 24,
                           fontWeight: bold,
                         ),
@@ -127,7 +128,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               "All Folders",
-              style: primaryTextStyle.copyWith(
+              style: tertiaryTextStyle.copyWith(
                 fontSize: 20,
                 fontWeight: semibold,
               ),
@@ -158,15 +159,15 @@ class _HomePageState extends State<HomePage> {
                   Icon(
                     Icons.folder_open,
                     size: 40,
-                    color: Colors.grey.shade400,
+                    color: subtitleColor01,
                   ),
                   const SizedBox(height: 10),
                   Text(
                     "No folders available.\nAdd a new folder to get started!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
+                      fontSize: 12,
+                      color: subtitleColor01,
                     ),
                   ),
                   const SizedBox(height: 34),
@@ -213,7 +214,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Text(
           "Ongoing Tasks",
-          style: primaryTextStyle.copyWith(
+          style: tertiaryTextStyle.copyWith(
             fontSize: 20,
             fontWeight: semibold,
           ),
@@ -221,9 +222,17 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    // Widget listOnGoingTask() {
-
-    // }
+    Widget listOnGoingTask() {
+      return Container(
+        margin: const EdgeInsets.only(left: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TaskListView(), // Menampilkan semua tugas tanpa filter tanggal
+          ],
+        ),
+      );
+    }
 
     return ListView(
       children: [
@@ -231,7 +240,7 @@ class _HomePageState extends State<HomePage> {
         noteFoldersTitle(),
         listnoteFolders(),
         taskOnGoingTitle(),
-        // listOnGoingTask(),
+        listOnGoingTask(),
       ],
     );
   }

@@ -119,7 +119,7 @@ class _CalendarPageState extends State<CalendarPage> {
               children: [
                 Text(
                   "Today's tasks",
-                  style: primaryTextStyle.copyWith(
+                  style: tertiaryTextStyle.copyWith(
                     fontSize: 24,
                     fontWeight: semibold,
                   ),
@@ -172,8 +172,8 @@ class _CalendarPageState extends State<CalendarPage> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: isSelected
-                  ? Colors.black
-                  : Colors.white, // Ganti dengan primaryColor
+                  ? background02
+                  : primaryColor, // Ganti dengan primaryColor
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -183,9 +183,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   style: TextStyle(
                     fontSize: 9,
                     fontWeight: regular,
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.grey, // Ganti dengan tertiaryTextStyle
+                    color: isSelected ? secondaryColor : subtitleColor01,
                   ),
                 ),
                 const SizedBox(
@@ -196,9 +194,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: semibold,
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.grey, // Ganti dengan tertiaryTextStyle
+                    color: isSelected ? secondaryColor : subtitleColor01,
                   ),
                 ),
                 const SizedBox(
@@ -209,9 +205,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: regular,
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.grey, // Ganti dengan tertiaryTextStyle
+                    color: isSelected ? secondaryColor : subtitleColor01,
                   ),
                 ),
               ],
@@ -243,10 +237,10 @@ class _CalendarPageState extends State<CalendarPage> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 20,
-                        vertical: MediaQuery.of(context).size.height * 0.3),
+                        vertical: MediaQuery.of(context).size.height * 0.25),
                     child: Text(
                       'No tasks available.',
-                      style: primaryTextStyle.copyWith(fontSize: 14),
+                      style: subtitleTextStyle.copyWith(fontSize: 12),
                     ),
                   ),
                 )
