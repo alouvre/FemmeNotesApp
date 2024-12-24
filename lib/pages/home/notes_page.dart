@@ -20,7 +20,7 @@ class _NotesPageState extends State<NotesPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<NoteProvider>(context, listen: false).fetchNotes(context);
     });
   }
@@ -64,6 +64,7 @@ class _NotesPageState extends State<NotesPage> {
 
     Widget addButton() {
       return FloatingActionButton(
+        heroTag: 'notes_add_button',
         onPressed: () {
           // Buka halaman formulir input
           Navigator.push(
@@ -134,10 +135,15 @@ class _NotesPageState extends State<NotesPage> {
                             await Provider.of<NoteProvider>(context,
                                     listen: false)
                                 .updateNote(context, updatedNote);
+                            Provider.of<NoteProvider>(context, listen: false)
+                                .fetchNotes(context);
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                  content: Text('Failed to update note: $e')),
+                                content: Text(
+                                  'Failed to update note: $e',
+                                ),
+                              ),
                             );
                           }
                         },

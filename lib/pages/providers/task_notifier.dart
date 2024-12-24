@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/task_model.dart';
 
-class TaskNotifier extends ValueNotifier<List<Task>> {
+class TaskNotifier extends ValueNotifier<List<TaskModel>> {
   TaskNotifier() : super([]);
 
-  void addTask(Task task) {
+  void addTask(TaskModel task) {
     value = [...value, task];
     notifyListeners();
   }

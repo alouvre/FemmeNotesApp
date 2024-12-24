@@ -32,8 +32,8 @@ class NoteModel {
       'title': title,
       'content': content,
       'color': color,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 }

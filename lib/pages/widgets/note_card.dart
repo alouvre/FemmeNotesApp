@@ -62,18 +62,18 @@ class NoteCard extends StatelessWidget {
               PopupMenuButton<String>(
                 onSelected: (value) {
                   if (value == 'edit') {
-                    showDialog(
-                      context: context,
-                      builder: (context) => EditNotePage(
-                        note: note,
-                        onSave: (updatedNote) {
-                          noteNotifier.updateNoteAt(index, updatedNote);
-                        },
-                      ),
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (context) => EditNotePage(
+                    //     note: note,
+                    //     onSave: (updatedNote) {
+                    //       noteNotifier.updateNoteAt(index, updatedNote);
+                    //     },
+                    //   ),
+                    // );
+                    onEdit();
                   } else if (value == 'delete') {
-                    noteNotifier.removeNoteCompletely(
-                        note); // Hapus catatan secara global
+                    onDelete(); // Hapus catatan secara global
                   } else if (value == 'move') {
                     print('Move to Folder selected'); // Debug
                     showDialog(

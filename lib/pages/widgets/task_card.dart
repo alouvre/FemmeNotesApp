@@ -1,20 +1,19 @@
+import 'package:femme_notes_app/pages/models/task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:femme_notes_app/theme.dart';
 
 class TaskCard extends StatelessWidget {
-  final String title;
-  final String time;
-  final String description;
+  final TaskModel task;
+  final int index;
   final Function()? onEdit;
   final Function()? onDelete;
 
   const TaskCard({
     super.key,
-    this.title = "Untitled Task",
-    this.time = "No Time Set",
-    this.description = "No Description",
-    this.onEdit,
-    this.onDelete,
+    required this.task,
+    required this.index,
+    required this.onEdit,
+    required this.onDelete,
   });
 
   @override
@@ -37,7 +36,7 @@ class TaskCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    title,
+                    task.title,
                     style: tertiaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,
@@ -76,7 +75,7 @@ class TaskCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8), // Spasi antara icon dan teks
                 Text(
-                  time,
+                  "${task.date} ${task.startTask}-${task.endTask}",
                   style: tertiaryTextStyle.copyWith(
                     fontSize: 12,
                     fontWeight: light,
@@ -86,7 +85,7 @@ class TaskCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              description,
+              task.note,
               style: tertiaryTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: light,

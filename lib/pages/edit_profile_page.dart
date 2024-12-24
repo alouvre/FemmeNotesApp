@@ -1,8 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:femme_notes_app/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:femme_notes_app/pages/providers/auth_provider.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
+
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    nameController.text = authProvider.name ?? '';
+    emailController.text = authProvider.email ?? '';
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> saveProfile() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final String name = nameController.text.trim();
+    final String email = emailController.text.trim();
+    if (name.isNotEmpty && email.isNotEmpty) {
+      try {
+        await authProvider.updateUser(name, email);
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update profile: $e')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Name and Email cannot be empty')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +62,7 @@ class EditProfilePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: saveProfile,
             icon: const Icon(Icons.check),
             color: primaryColor,
           )
@@ -52,6 +97,7 @@ class EditProfilePage extends StatelessWidget {
               ),
             ),
             TextFormField(
+              controller: nameController,
               decoration: InputDecoration(
                 hintText: "Chris",
                 hintStyle: primaryTextStyle,
@@ -83,6 +129,7 @@ class EditProfilePage extends StatelessWidget {
               ),
             ),
             TextFormField(
+              controller: emailController,
               decoration: InputDecoration(
                 hintText: "chrisevan@gmail.com",
                 hintStyle: primaryTextStyle,

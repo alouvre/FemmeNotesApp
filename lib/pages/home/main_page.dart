@@ -32,8 +32,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     Widget addButton() {
       return FloatingActionButton(
+        heroTag: 'main_add_button',
         onPressed: () async {
-          final newTask = await Navigator.push<Task>(
+          final newTask = await Navigator.push<TaskModel>(
             context,
             MaterialPageRoute(
               builder: (context) => const AddTaskPage(),
@@ -145,6 +146,7 @@ class _MainPageState extends State<MainPage> {
         case 2:
           return CalendarPage(
             // Kirim fungsi updateSelectedDate ke CalendarPage
+            selectedDate: selectedDate,
             onDateSelected: updateSelectedDate,
           );
         case 3:

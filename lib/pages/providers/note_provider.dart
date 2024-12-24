@@ -79,8 +79,10 @@ class NoteProvider with ChangeNotifier {
       body: jsonEncode(note.toJson()),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final index = _notes.indexWhere((n) => n.id == note.id);
+      print('Found index: $index');
+
       if (index != -1) {
         _notes[index] = note;
         notifyListeners();

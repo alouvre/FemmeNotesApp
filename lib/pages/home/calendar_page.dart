@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:femme_notes_app/pages/models/task_model.dart';
+import 'package:femme_notes_app/pages/providers/task_provider.dart';
 import 'package:femme_notes_app/pages/providers/task_notifier.dart';
 import 'package:femme_notes_app/pages/widgets/task_card.dart';
 import 'package:femme_notes_app/theme.dart';
@@ -8,8 +10,10 @@ import 'package:intl/intl.dart'; // Untuk memformat tanggal
 class CalendarPage extends StatefulWidget {
   final Function(String)
       onDateSelected; // Callback untuk mengirim tanggal ke MainPage
+  final String selectedDate;
 
-  const CalendarPage({super.key, required this.onDateSelected});
+  const CalendarPage(
+      {super.key, required this.onDateSelected, required this.selectedDate});
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
@@ -18,9 +22,28 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
-  void _editTask(BuildContext context, Task task) {
+  @override
+  void initState() {
+    super.initState();
+    fetchTasks(widget.selectedDate);
+  }
+
+  Future<void> fetchTasks(String date) async {
+    await Provider.of<TaskProvider>(context, listen: false)
+        .fetchTasks(context, date);
+  }
+
+  @override
+  void didUpdateWidget(CalendarPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      fetchTasks(widget.selectedDate);
+    }
+  }
+
+  void _editTask(BuildContext context, TaskModel task) {
     final titleController = TextEditingController(text: task.title);
-    final descriptionController = TextEditingController(text: task.description);
+    final noteController = TextEditingController(text: task.note);
 
     showDialog(
       context: context,
@@ -35,7 +58,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 decoration: const InputDecoration(labelText: 'Title'),
               ),
               TextField(
-                controller: descriptionController,
+                controller: noteController,
                 decoration: const InputDecoration(labelText: 'Description'),
               ),
             ],
@@ -52,10 +75,11 @@ class _CalendarPageState extends State<CalendarPage> {
                 // Update task in notifier
                 taskNotifier.value = taskNotifier.value.map((t) {
                   if (t == task) {
-                    return Task(
+                    return TaskModel(
                       title: titleController.text,
-                      time: task.time,
-                      description: descriptionController.text,
+                      note: noteController.text,
+                      startTask: task.startTask,
+                      endTask: task.endTask,
                       date: task.date,
                     );
                   }
@@ -72,7 +96,7 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
-  void _deleteTask(Task task) {
+  void _deleteTask(TaskModel task) {
     // Konfirmasi penghapusan
     showDialog(
       context: context,
@@ -113,7 +137,6 @@ class _CalendarPageState extends State<CalendarPage> {
           elevation: 0,
           flexibleSpace: Padding(
             padding: const EdgeInsets.only(top: 80, left: 30),
-            // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -131,9 +154,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage(
-                        "assets/image-profile.png",
-                      ),
+                      image: AssetImage("assets/image-profile.png"),
                     ),
                   ),
                 ),
@@ -146,24 +167,16 @@ class _CalendarPageState extends State<CalendarPage> {
 
     Widget datePicker() {
       DateTime today = DateTime.now();
-
-      // Membuat list tanggal untuk ditampilkan dalam bentuk horizontal
       List<Widget> dateWidgets = List.generate(30, (index) {
-        // Menghitung tanggal berdasarkan hari ini
         DateTime date = today.add(Duration(days: index));
-        String day = DateFormat('d').format(date); // Hari tanggal
-        String weekday = DateFormat('E').format(date); // Singkatan Hari
-        String month =
-            DateFormat('MMM').format(date).toUpperCase(); // Bulan Kapital
+        String day = DateFormat('d').format(date);
+        String weekday = DateFormat('E').format(date);
+        String month = DateFormat('MMM').format(date).toUpperCase();
         String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-        bool isSelected = formattedDate == selectedDate;
-
+        bool isSelected = formattedDate == widget.selectedDate;
         return GestureDetector(
           onTap: () {
-            // Mengirimkan formattedDate ke currentTasks
-            setState(() {
-              selectedDate = formattedDate; // Update tanggal yang dipilih
-            });
+            widget.onDateSelected(formattedDate);
           },
           child: Container(
             width: 55,
@@ -171,9 +184,7 @@ class _CalendarPageState extends State<CalendarPage> {
             margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: isSelected
-                  ? Colors.black
-                  : Colors.white, // Ganti dengan primaryColor
+              color: isSelected ? Colors.black : Colors.white,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -183,35 +194,25 @@ class _CalendarPageState extends State<CalendarPage> {
                   style: TextStyle(
                     fontSize: 9,
                     fontWeight: regular,
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.grey, // Ganti dengan tertiaryTextStyle
+                    color: isSelected ? Colors.white : Colors.grey,
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 Text(
                   day,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: semibold,
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.grey, // Ganti dengan tertiaryTextStyle
+                    color: isSelected ? Colors.white : Colors.grey,
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 Text(
                   weekday,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: regular,
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.grey, // Ganti dengan tertiaryTextStyle
+                    color: isSelected ? Colors.white : Colors.grey,
                   ),
                 ),
               ],
@@ -219,60 +220,37 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         );
       });
-
       return SingleChildScrollView(
-        scrollDirection: Axis.horizontal, // Agar bisa scroll horizontal
-        child: Row(
-          children: dateWidgets,
-        ),
+        scrollDirection: Axis.horizontal,
+        child: Row(children: dateWidgets),
       );
     }
 
     Widget listTasks() {
-      return ValueListenableBuilder<List<Task>>(
-        valueListenable: taskNotifier,
-        builder: (context, tasks, _) {
-          print("Current Tasks: ${tasks.length}"); // Debugging jumlah task
-
-          // Filter tugas berdasarkan tanggal yang dipilih
-          final filteredTasks =
-              tasks.where((task) => task.date == selectedDate).toList();
-
-          return filteredTasks.isEmpty
-              ? Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: MediaQuery.of(context).size.height * 0.3),
-                    child: Text(
-                      'No tasks available.',
-                      style: primaryTextStyle.copyWith(fontSize: 14),
-                    ),
-                  ),
-                )
-              : SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: filteredTasks.length,
-                    itemBuilder: (context, index) {
-                      final task = filteredTasks[index];
-                      return TaskCard(
-                        title: task.title,
-                        time: task.time,
-                        description: task.description,
-                        onEdit: () {
-                          _editTask(context, task);
-                        },
-                        onDelete: () {
-                          _deleteTask(task);
-                        },
-                      );
-                    },
-                  ),
-                );
-        },
-      );
+      return Consumer<TaskProvider>(builder: (context, taskProvider, _) {
+        if (taskProvider.tasks.isEmpty) {
+          return Center(
+            child: Text(
+              'No tasks for the selected date',
+              style: tertiaryTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+          );
+        }
+        return ListView.builder(
+            itemCount: taskProvider.tasks.length,
+            itemBuilder: (context, index) {
+              final task = taskProvider.tasks[index];
+              return TaskCard(
+                task: task,
+                index: index,
+                onEdit: () {},
+                onDelete: () {},
+              );
+            });
+      });
     }
 
     Widget content() {
@@ -284,8 +262,8 @@ class _CalendarPageState extends State<CalendarPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                datePicker(), // Memilih tanggal
-                listTasks(), // Menampilkan tugas berdasarkan tanggal
+                datePicker(),
+                listTasks(),
               ],
             ),
           ),

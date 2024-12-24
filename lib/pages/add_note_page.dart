@@ -57,8 +57,6 @@ class _AddNotePageState extends State<AddNotePage> {
     final newNote = NoteModel(
       title: titleController.text.trim(),
       content: contentController.text.trim(),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
     );
 
     try {

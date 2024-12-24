@@ -26,36 +26,18 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> fetchUserProfile() async {
-    final token = context.read<AuthProvider>().token;
-
-    if (token != null) {
-      final response = await http
-          .get(Uri.parse('${Config.apiUrl}/user'), headers: <String, String>{
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json; charset=UTF-8',
-      });
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        setState(() {
-          name = data['user']['name'];
-          email = data['user']['email'];
-          isLoading = false;
-        });
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } else {
-      setState(() {
-        isLoading = false;
-      });
-    }
+    await Provider.of<AuthProvider>(context, listen: false).fetchUserProfile();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final name = authProvider.name ?? '';
+    final email = authProvider.email ?? '';
+
     Widget header() {
       return AppBar(
         backgroundColor: background01,

@@ -1,5 +1,6 @@
 import 'package:femme_notes_app/pages/home/notes_page.dart';
 import 'package:femme_notes_app/pages/providers/note_provider.dart';
+import 'package:femme_notes_app/pages/providers/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:femme_notes_app/pages/add_note_page.dart';
 import 'package:femme_notes_app/pages/add_task_page.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()..loadToken()),
-        ChangeNotifierProvider(create: (_) => NoteProvider())
+        ChangeNotifierProvider(create: (_) => NoteProvider()),
+        ChangeNotifierProvider(create: (_) => TaskProvider())
       ],
       // create: (_) => AuthProvider()..loadToken(),
       child: Consumer<AuthProvider>(
