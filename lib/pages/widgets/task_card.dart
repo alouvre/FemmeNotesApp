@@ -1,6 +1,7 @@
 import 'package:femme_notes_app/pages/models/task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:femme_notes_app/theme.dart';
+import 'package:intl/intl.dart';
 
 class TaskCard extends StatelessWidget {
   final TaskModel task;

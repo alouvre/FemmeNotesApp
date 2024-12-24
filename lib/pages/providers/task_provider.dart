@@ -38,13 +38,74 @@ class TaskProvider with ChangeNotifier {
     }
   }
 
-  void setTasks(List<TaskModel> tasks) {
-    _tasks = tasks;
-    notifyListeners();
+  Future<void> addTask(BuildContext context, TaskModel task) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final token = authProvider.token;
+
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+
+    final response = await http.post(
+      Uri.parse('${Config.apiUrl}/task'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(task.toJson()),
+    );
+    if (response.statusCode == 201) {
+      final data = jsonDecode(response.body)['data'];
+      final newTask = TaskModel.fromJson(data);
+      _tasks.add(newTask);
+      notifyListeners();
+    } else {
+      throw Exception('Failed to add task');
+    }
   }
 
-  void deleteTask(int id) {
-    _tasks.removeWhere((task) => task.id == id);
-    notifyListeners();
+  Future<void> editTask(BuildContext context, TaskModel task) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final token = authProvider.token;
+
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+
+    final response = await http.put(
+      Uri.parse('${Config.apiUrl}/task/${task.id}'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(task.toJson()),
+    );
+    if (response.statusCode == 201) {
+      _tasks = _tasks.map((t) => t.id == task.id ? task : t).toList();
+      notifyListeners();
+    } else {
+      throw Exception('Failed to edit task');
+    }
+  }
+
+  Future<void> deleteTask(BuildContext context, int? id) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final token = authProvider.token;
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    final response = await http.delete(
+      Uri.parse('${Config.apiUrl}/task/$id'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      _tasks.removeWhere((task) => task.id == id);
+      notifyListeners();
+    } else {
+      throw Exception('Failed to delete task');
+    }
   }
 }

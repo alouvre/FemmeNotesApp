@@ -1,9 +1,12 @@
+import 'package:femme_notes_app/pages/models/task_model.dart';
+import 'package:femme_notes_app/pages/providers/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:femme_notes_app/pages/folder_notes_page.dart';
 import 'package:femme_notes_app/pages/models/folder_model.dart';
 import 'package:femme_notes_app/pages/providers/folder_notifier.dart';
 import 'package:femme_notes_app/pages/widgets/folder_card.dart';
 import 'package:femme_notes_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +16,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<TaskModel> getNonExpiredTasks(List<TaskModel> tasks) {
+    DateTime today = DateTime.now();
+    DateTime tomorrow = today.add(Duration(days: 1));
+    return tasks.where((task) {
+      DateTime taskDate = DateTime.parse(task.date);
+      return taskDate.isAfter(today.subtract(Duration(days: 1))) &&
+          taskDate.isBefore(tomorrow.add(Duration(days: 1)));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     // Dialog untuk menambahkan folder baru
@@ -221,9 +234,53 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    // Widget listOnGoingTask() {
-
-    // }
+    Widget listOnGoingTask() {
+      return Consumer<TaskProvider>(
+        builder: (context, taskProvider, _) {
+          List<TaskModel> nonExpiredTasks =
+              getNonExpiredTasks(taskProvider.tasks);
+          if (nonExpiredTasks.isEmpty) {
+            return Center(
+              child: Column(
+                children: [
+                  const SizedBox(height: 34),
+                  Icon(
+                    Icons.task_alt,
+                    size: 40,
+                    color: Colors.grey.shade400,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "No ongoing tasks.\nAll caught up!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  const SizedBox(height: 34),
+                ],
+              ),
+            );
+          }
+          return Container(
+            margin: const EdgeInsets.only(top: 8, left: 20),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: nonExpiredTasks.length,
+              itemBuilder: (context, index) {
+                final task = nonExpiredTasks[index];
+                return ListTile(
+                  title: Text(task.title),
+                  subtitle: Text('Due: ${task.date}'),
+                  onTap: () {},
+                );
+              },
+            ),
+          );
+        },
+      );
+    }
 
     return ListView(
       children: [
@@ -231,7 +288,7 @@ class _HomePageState extends State<HomePage> {
         noteFoldersTitle(),
         listnoteFolders(),
         taskOnGoingTitle(),
-        // listOnGoingTask(),
+        listOnGoingTask(),
       ],
     );
   }

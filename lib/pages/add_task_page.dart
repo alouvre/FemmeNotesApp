@@ -1,8 +1,10 @@
+import 'package:femme_notes_app/pages/providers/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:femme_notes_app/pages/models/task_model.dart';
 import 'package:femme_notes_app/pages/providers/task_notifier.dart';
 import 'package:femme_notes_app/theme.dart';
-import 'package:intl/intl.dart'; // Untuk format tanggal
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart'; // Untuk format tanggal
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({super.key});
@@ -26,7 +28,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   void initState() {
     super.initState();
-    dateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
+    dateController.text = DateFormat('yyyy/MM/dd').format(DateTime.now());
     startTimeController.text = DateFormat.jm().format(DateTime.now());
     endTimeController.text =
         DateFormat.jm().format(DateTime.now().add(const Duration(hours: 1)));
@@ -69,28 +71,33 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 
-  void _submitTask() {
-    if (titleController.text.trim().isEmpty ||
-        noteController.text.trim().isEmpty ||
+  void _submitTask() async {
+    if (titleController.text.isEmpty ||
+        noteController.text.isEmpty ||
         dateController.text.isEmpty ||
         startTimeController.text.isEmpty ||
         endTimeController.text.isEmpty) {
-      _showAlertDialog('Please complete all fields');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please fill in all fields')),
+      );
       return;
     }
 
-    final newTask = TaskModel(
-      title: titleController.text.trim(),
-      note: noteController.text.trim(),
-      date: DateFormat('yyyy-MM-dd').format(
-        DateFormat('dd/MM/yyyy').parse(dateController.text.trim()),
-      ),
-      startTask: startTimeController.text.trim(),
-      endTask: endTimeController.text.trim(),
+    TaskModel newTask = TaskModel(
+      title: titleController.text,
+      note: noteController.text,
+      date: dateController.text,
+      startTask: startTimeController.text,
+      endTask: endTimeController.text,
     );
 
-    taskNotifier.addTask(newTask);
-    _showAlertDialog('Task successfully added!', isSuccess: true);
+    try {
+      await Provider.of<TaskProvider>(context, listen: false)
+          .addTask(context, newTask);
+      _showAlertDialog('Task successfully added!', isSuccess: true);
+    } catch (err) {
+      _showAlertDialog('Failed to add task: $err', isSuccess: false);
+    }
   }
 
   @override
@@ -233,14 +240,14 @@ class _AddTaskPageState extends State<AddTaskPage> {
       );
 
       if (selectedDate != null) {
-        dateController.text = DateFormat('dd/MM/yyyy').format(selectedDate);
+        dateController.text = DateFormat('yyyy/MM/dd').format(selectedDate);
       }
     }
 
     // Set default date to current date
     void setCurrentDate() {
       DateTime now = DateTime.now();
-      dateController.text = DateFormat('dd/MM/yyyy').format(now);
+      dateController.text = DateFormat('yyyy/MM/dd').format(now);
     }
 
     // Set the default date on widget load

@@ -71,20 +71,18 @@ class _CalendarPageState extends State<CalendarPage> {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
-                // Update task in notifier
-                taskNotifier.value = taskNotifier.value.map((t) {
-                  if (t == task) {
-                    return TaskModel(
-                      title: titleController.text,
-                      note: noteController.text,
-                      startTask: task.startTask,
-                      endTask: task.endTask,
-                      date: task.date,
-                    );
-                  }
-                  return t;
-                }).toList();
+              onPressed: () async {
+                TaskModel editedTask = TaskModel(
+                  id: task.id,
+                  title: titleController.text,
+                  note: noteController.text,
+                  startTask: task.startTask,
+                  endTask: task.endTask,
+                  date: task.date,
+                );
+
+                await Provider.of<TaskProvider>(context, listen: false)
+                    .editTask(context, editedTask);
 
                 Navigator.pop(context);
               },
@@ -96,7 +94,7 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
-  void _deleteTask(TaskModel task) {
+  void _deleteTask(BuildContext context, TaskModel task) {
     // Konfirmasi penghapusan
     showDialog(
       context: context,
@@ -112,9 +110,9 @@ class _CalendarPageState extends State<CalendarPage> {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
-                taskNotifier.value =
-                    taskNotifier.value.where((t) => t != task).toList();
+              onPressed: () async {
+                await Provider.of<TaskProvider>(context, listen: false)
+                    .deleteTask(context, task.id);
                 Navigator.pop(context); // Tutup dialog
               },
               child: const Text('Delete'),
@@ -167,8 +165,10 @@ class _CalendarPageState extends State<CalendarPage> {
 
     Widget datePicker() {
       DateTime today = DateTime.now();
+      int daysRange = 30;
+
       List<Widget> dateWidgets = List.generate(30, (index) {
-        DateTime date = today.add(Duration(days: index));
+        DateTime date = today.add(Duration(days: daysRange ~/ 2 - index));
         String day = DateFormat('d').format(date);
         String weekday = DateFormat('E').format(date);
         String month = DateFormat('MMM').format(date).toUpperCase();
@@ -246,8 +246,12 @@ class _CalendarPageState extends State<CalendarPage> {
               return TaskCard(
                 task: task,
                 index: index,
-                onEdit: () {},
-                onDelete: () {},
+                onEdit: () {
+                  _editTask(context, task);
+                },
+                onDelete: () {
+                  _deleteTask(context, task);
+                },
               );
             });
       });
@@ -258,15 +262,17 @@ class _CalendarPageState extends State<CalendarPage> {
         child: Container(
           width: 390,
           margin: const EdgeInsets.only(top: 15, left: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                datePicker(),
-                listTasks(),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              datePicker(),
+              Expanded(
+                child: listTasks(),
+              )
+            ],
           ),
+          // child: SingleChildScrollView(
+          // ),
         ),
       );
     }
